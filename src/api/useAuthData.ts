@@ -1,0 +1,40 @@
+import axios from "axios";
+import { clientId, clientSecret } from "@/utils/env";
+import { addDateToken, addToken, getDateToken } from "@/utils/localStorage";
+
+const tokenUrl = "https://us.battle.net/oauth/token";
+
+async function getAccessToken() {
+
+  const res = await axios.post(
+    tokenUrl,
+    "grant_type=client_credentials", {
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded",
+      Authorization: "Basic " + btoa(`${clientId}:${clientSecret}`),
+    },
+  });
+
+  addToken(res.data.access_token);
+  addDateToken();
+}
+
+async function getToken() {
+  var dateToken = getDateToken();
+  var authToken: string = await getToken();
+  var dayInMiliseconds = 86400000;
+
+  if (dateToken === null || authToken === null) {
+    await getAccessToken();
+    return authToken;
+  }
+
+  if (Number(dateToken) + dayInMiliseconds < Date.now()) {
+    await getAccessToken();
+    return authToken;
+  }
+
+  return authToken;
+}
+
+export { getToken };
