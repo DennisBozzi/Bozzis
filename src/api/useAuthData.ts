@@ -1,6 +1,6 @@
 import axios from "axios";
 import { clientId, clientSecret } from "@/utils/env";
-import { addDateToken, addToken, getDateToken } from "@/utils/localStorage";
+import { addDateToken, addToken, getDateToken, getToken } from "@/utils/localStorage";
 
 const tokenUrl = "https://us.battle.net/oauth/token";
 
@@ -19,9 +19,9 @@ async function getAccessToken() {
   addDateToken();
 }
 
-async function getToken() {
+async function checkToken() {
   var dateToken = getDateToken();
-  var authToken: string = await getToken();
+  var authToken = getToken();
   var dayInMiliseconds = 86400000;
 
   if (dateToken === null || authToken === null) {
@@ -37,4 +37,4 @@ async function getToken() {
   return authToken;
 }
 
-export { getToken };
+export { checkToken };
