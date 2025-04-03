@@ -5,7 +5,6 @@ import { addDateToken, addToken, getDateToken, getToken } from "@/utils/localSto
 const tokenUrl = "https://us.battle.net/oauth/token";
 
 async function getAccessToken() {
-
   const res = await axios.post(
     tokenUrl,
     "grant_type=client_credentials", {
@@ -26,12 +25,12 @@ async function checkToken() {
 
   if (dateToken === null || authToken === null) {
     await getAccessToken();
-    return authToken;
+    return getToken();
   }
 
   if (Number(dateToken) + dayInMiliseconds < Date.now()) {
     await getAccessToken();
-    return authToken;
+    return getToken();
   }
 
   return authToken;
