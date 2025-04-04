@@ -2,6 +2,7 @@ import { clsx, type ClassValue } from "clsx"
 import { twMerge } from "tailwind-merge"
 import { toast } from "sonner"
 import { createClient } from "@supabase/supabase-js";
+import { useAuth } from "@/supabase/authProvider";
 
 const supabase = createClient('https://toadqdstdkrpfrjldpid.supabase.co', import.meta.env.VITE_API_KEY)
 
@@ -21,4 +22,9 @@ export function successToast(title: string, description: string) {
 
 export function warningToast(title: string, description: string) {
   return toast.warning(title, { description, action: { label: "undo", onClick: () => { } } })
+}
+
+export function isAuthenticated() {
+  var session = useAuth();
+  return session?.user.email === "dennisbozzii@gmail.com" ? session : null;
 }
