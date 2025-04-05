@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Session } from '@supabase/supabase-js'
 import { supabaseInstance } from '@/lib/supabase';
+import { dismissAllToasts, warningToast } from '@/lib/toast';
 
 const supabase = supabaseInstance();
 
@@ -24,6 +25,10 @@ function useAuth() {
         }
     }, [])
 
+    if (session?.user)
+        if (!isAuthenticated(session))
+            return null;
+
     return session
 }
 
@@ -36,6 +41,10 @@ async function signIn(email: string, password: string) {
         email: email,
         password: password,
     })
+
+    if (error)
+        warningToast("Login failure", error.message)
+
     return { data, error };
 }
 
@@ -61,4 +70,23 @@ async function signInGitHub() {
     return { data, error };
 }
 
-export {  useAuth, signOut, signIn, signUp, signInGoogle, signInGitHub }
+function isAuthenticated(session: any) {
+
+    var emails: string[] = [
+        "dennisbozzii@gmail.com",
+        "rafaelamenegardo@gmail.com"
+    ];
+
+    var email: string = session.user.email;
+
+    if (!emails.includes(email)) {
+        dismissAllToasts()
+        warningToast("Failure login", "user not allowed");
+        signOut()
+        return false
+    }
+
+    return true
+}
+
+export { useAuth, signOut, signIn, signUp, signInGoogle, signInGitHub }

@@ -1,26 +1,27 @@
-import { useRef } from "react"
+import { useRef, useState } from "react"
 import { cn } from "@/lib/utils"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
-import { signInGitHub, signInGoogle } from "@/supabase/authProvider"
+import { signIn, signInGitHub, signInGoogle } from "@/supabase/authProvider"
 export function LoginForm({
   className,
   ...props
 }: React.ComponentProps<"div">) {
 
   const formRef = useRef<any>(null);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
-  function teste(event: any) {
-    event.preventDefault()
+  function signInWithEmail() {
 
     if (!formRef.current.checkValidity()) {
       formRef.current.reportValidity();
       return;
     }
 
-    console.log(formRef)
+    signIn(email, password);
   }
 
   return (
@@ -41,6 +42,8 @@ export function LoginForm({
                   id="email"
                   type="email"
                   placeholder="email@example.com"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                   required
                 />
               </div>
@@ -48,9 +51,16 @@ export function LoginForm({
                 <div className="flex items-center">
                   <Label htmlFor="password">Password</Label>
                 </div>
-                <Input id="password" type="password" placeholder="••••••••" required />
+                <Input
+                  id="password"
+                  type="password"
+                  placeholder="••••••••"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  required
+                />
               </div>
-              <Button onClick={(e) => teste(e)} className="w-full text-background">
+              <Button type="button" onClick={() => signInWithEmail()} className="w-full text-white">
                 Login
               </Button>
               <div className="relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t after:border-border">

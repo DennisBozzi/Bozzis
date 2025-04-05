@@ -1,12 +1,12 @@
 import { Toaster } from 'sonner';
-import LoginPage from './screens/loginPage';
-import { isAuthenticated } from './lib/supabase';
-import { Navigate, Route, BrowserRouter as Router, Routes } from 'react-router'
 import HomePage from './screens/homePage';
+import LoginPage from './screens/loginPage';
+import { useAuth } from './supabase/authProvider';
+import { Navigate, Route, BrowserRouter as Router, Routes } from 'react-router'
 
 function App() {
 
-  const session = isAuthenticated();
+  const session = useAuth();
 
   return (
     <Router>
