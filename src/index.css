@@ -119,3 +119,17 @@
     @apply bg-background text-foreground;
   }
 }
+
+.sidebarContent::-webkit-scrollbar {
+  width: 4px;
+}
+
+.sidebarContent::-webkit-scrollbar-thumb {
+  background: #888;
+  height: 10px;
+  border-radius: 20px;
+}
+
+.sidebarContent::-webkit-scrollbar-thumb:hover {
+  background: var(--secondary);
+}
