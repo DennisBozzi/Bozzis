@@ -2,7 +2,9 @@ import { User, Home, Building } from "lucide-react";
 import SideBarMenuTenant from "./side-bar-menu-tenant";
 import SideBarMenuResidence from "./side-bar-menu-residence";
 import { selectResidences } from "@/services/residencesService";
-import { Sidebar, SidebarContent, SidebarGroup, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from "../ui/sidebar";
+import { Sidebar, SidebarContent, SidebarFooter, SidebarGroup, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from "../ui/sidebar";
+import SideBarMenuFooter from "./side-bar-menu-footer";
+import { useAuth } from "@/supabase/authProvider";
 
 var residences = await selectResidences();
 
@@ -21,6 +23,7 @@ var tenant = {
 
 export function SideBar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 
+  var session = useAuth();
 
   return (
     <Sidebar {...props} collapsible="icon" variant="floating">
@@ -52,6 +55,9 @@ export function SideBar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 
         </SidebarGroup>
       </SidebarContent>
+      <SidebarFooter>
+        <SideBarMenuFooter user={session?.user} />
+      </SidebarFooter>
     </Sidebar >
   );
 }
