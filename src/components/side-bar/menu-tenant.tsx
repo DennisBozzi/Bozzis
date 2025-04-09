@@ -1,8 +1,9 @@
+import { Link } from 'react-router'
 import { ChevronRight } from "lucide-react"
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@radix-ui/react-collapsible";
 import { SidebarMenu, SidebarMenuButton, SidebarMenuItem, SidebarMenuSub, SidebarMenuSubButton, SidebarMenuSubItem } from "../ui/sidebar";
 
-export default function SideBarMenuTenant(item: any) {
+export default function MenuTenant(item: any) {
     var i = item.item;
 
     return (
@@ -16,11 +17,13 @@ export default function SideBarMenuTenant(item: any) {
                 >
                     <SidebarMenuItem>
                         <CollapsibleTrigger asChild>
-                            <SidebarMenuButton tooltip={i.title} className="cursor-pointer">
-                                {i.icon && <i.icon />}
-                                <span>{i.title}</span>
-                                <ChevronRight className={"ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90"} />
-                            </SidebarMenuButton>
+                            <Link to="/tenants">
+                                <SidebarMenuButton tooltip={i.title} className="cursor-pointer">
+                                    {i.icon && <i.icon />}
+                                    <span>{i.title}</span>
+                                    <ChevronRight className={"ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90"} />
+                                </SidebarMenuButton>
+                            </Link>
                         </CollapsibleTrigger>
 
                         <CollapsibleContent>

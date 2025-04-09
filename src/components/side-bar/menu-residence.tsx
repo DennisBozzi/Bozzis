@@ -1,9 +1,10 @@
+import { Link } from 'react-router';
 import { ChevronRight } from "lucide-react"
 import Residence from "@/interfaces/residence";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@radix-ui/react-collapsible";
-import { SidebarGroupLabel, SidebarMenu, SidebarMenuButton, SidebarMenuItem, SidebarMenuSub, SidebarMenuSubButton, SidebarMenuSubItem } from "../ui/sidebar";
+import { SidebarMenu, SidebarMenuButton, SidebarMenuItem, SidebarMenuSub, SidebarMenuSubButton, SidebarMenuSubItem } from "../ui/sidebar";
 
-export default function SideBarMenuResidence(item: any) {
+export default function MenuResidence(item: any) {
     var i = item.item;
 
     return (
@@ -16,12 +17,15 @@ export default function SideBarMenuResidence(item: any) {
                     className="group/collapsible"
                 >
                     <SidebarMenuItem>
+
                         <CollapsibleTrigger asChild>
-                            <SidebarMenuButton tooltip={i.title} className="cursor-pointer">
-                                {i.icon && <i.icon />}
-                                <span>{i.title}</span>
-                                <ChevronRight className={"ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90"} />
-                            </SidebarMenuButton>
+                            <Link to="/residences">
+                                <SidebarMenuButton tooltip={i.title} className="cursor-pointer">
+                                    {i.icon && <i.icon />}
+                                    <span>{i.title}</span>
+                                    <ChevronRight className={"ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90"} />
+                                </SidebarMenuButton>
+                            </Link>
                         </CollapsibleTrigger>
 
                         <CollapsibleContent>
@@ -32,11 +36,13 @@ export default function SideBarMenuResidence(item: any) {
                                 {
                                     i.content?.filter((c: Residence) => c.type === "apartment")
                                         .map((c: any) =>
-                                            <SidebarMenuSubItem key={c.id}>
-                                                <SidebarMenuSubButton asChild>
-                                                    <span>{c.name}</span>
-                                                </SidebarMenuSubButton>
-                                            </SidebarMenuSubItem>
+                                            <Link to={"/residences/" + c.name} key={c.id}>
+                                                <SidebarMenuSubItem>
+                                                    <SidebarMenuSubButton asChild>
+                                                        <span>{c.name}</span>
+                                                    </SidebarMenuSubButton>
+                                                </SidebarMenuSubItem>
+                                            </Link>
                                         )
                                 }
 
@@ -46,11 +52,13 @@ export default function SideBarMenuResidence(item: any) {
                                 {
                                     i.content?.filter((c: Residence) => c.type === "kitchenette")
                                         .map((c: Residence) =>
-                                            <SidebarMenuSubItem key={c.id}>
-                                                <SidebarMenuSubButton asChild>
-                                                    <span>{c.name}</span>
-                                                </SidebarMenuSubButton>
-                                            </SidebarMenuSubItem>
+                                            <Link to={"/residences/" + c.name} key={c.id}>
+                                                <SidebarMenuSubItem>
+                                                    <SidebarMenuSubButton asChild>
+                                                        <span>{c.name}</span>
+                                                    </SidebarMenuSubButton>
+                                                </SidebarMenuSubItem>
+                                            </Link>
                                         )
                                 }
 
@@ -60,11 +68,13 @@ export default function SideBarMenuResidence(item: any) {
                                 {
                                     i.content?.filter((c: Residence) => c.type === "store")
                                         .map((c: Residence) =>
-                                            <SidebarMenuSubItem key={c.id}>
-                                                <SidebarMenuSubButton asChild>
-                                                    <span>{c.name}</span>
-                                                </SidebarMenuSubButton>
-                                            </SidebarMenuSubItem>
+                                            <Link to={"/residences/" + c.name} key={c.id}>
+                                                <SidebarMenuSubItem>
+                                                    <SidebarMenuSubButton asChild>
+                                                        <span>{c.name}</span>
+                                                    </SidebarMenuSubButton>
+                                                </SidebarMenuSubItem>
+                                            </Link>
                                         )
                                 }
 

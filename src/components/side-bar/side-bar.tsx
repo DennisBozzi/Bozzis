@@ -1,10 +1,12 @@
 import { User, Home, Building } from "lucide-react";
-import SideBarMenuTenant from "./side-bar-menu-tenant";
-import SideBarMenuResidence from "./side-bar-menu-residence";
+import { Link } from 'react-router';
+import MenuTenant from "./menu-tenant";
+import MenuResidence from "./menu-residence";
 import { selectResidences } from "@/services/residencesService";
 import { Sidebar, SidebarContent, SidebarFooter, SidebarGroup, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from "../ui/sidebar";
-import SideBarMenuFooter from "./side-bar-menu-footer";
+import MenuFooter from "./menu-footer";
 import { useAuth } from "@/supabase/authProvider";
+import MenuSecondary from "./menu-secondary";
 
 var residences = await selectResidences();
 
@@ -32,7 +34,7 @@ export function SideBar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <SidebarMenu>
           <SidebarMenuItem>
             <SidebarMenuButton size="lg" asChild>
-              <a href="#">
+              <Link to="/home">
                 <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-secondary text-sidebar-primary-foreground">
                   <Building className="size-4" />
                 </div>
@@ -40,24 +42,28 @@ export function SideBar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                   <span className="font-semibold">Bozzis</span>
                   <span className="">v0.0.1</span>
                 </div>
-              </a>
+              </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>
       </SidebarHeader>
 
       <SidebarContent className="sidebarContent">
+
         <SidebarGroup>
+          <MenuResidence item={residence} />
 
-          <SideBarMenuResidence item={residence} />
-
-          <SideBarMenuTenant item={tenant} />
-
+          <MenuTenant item={tenant} />
         </SidebarGroup>
+
+
       </SidebarContent>
+
       <SidebarFooter>
-        <SideBarMenuFooter user={session?.user} />
+        <MenuSecondary />
+        <MenuFooter user={session?.user} />
       </SidebarFooter>
+
     </Sidebar >
   );
 }
