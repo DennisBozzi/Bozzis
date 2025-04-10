@@ -7,8 +7,8 @@ import { User } from "lucide-react";
 export default function CardResidence({ res }: { res: Residence }) {
 
     return (
-        <Link to={"/residences/" + res.name}>
-            <Card className="cursor-pointer w-54">
+        <Link to={"/residences/" + res.name} >
+            <Card className="cursor-pointer w-54 border-0 hover:scale-[1.02] duration-[0.1s]">
                 <CardHeader>
                     <CardTitle>{res.name}</CardTitle>
                     <CardDescription>R$500</CardDescription>
@@ -25,7 +25,7 @@ export default function CardResidence({ res }: { res: Residence }) {
                                 case "kitchenette":
                                     return "warning";
                                 case "apartment":
-                                    return "outline";
+                                    return "default";
                                 case "store":
                                     return "success";
                                 default:
